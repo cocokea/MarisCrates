@@ -1,0 +1,28 @@
+storage:
+  type: sqlite # sqlite/mysql
+  mysql:
+    host: localhost
+    port: 3306
+    database: minecraft
+    username: root
+    password: ''
+    pool-size: 10
+
+auto-keyall:
+  enabled: true
+  interval-minutes: 60
+  crate: common
+  amount: 1
+
+warp-command: 'warp crates'
+
+hologram:
+  enabled: true
+  y-offset: 0.3
+  view-distance: 30
+  text-shadow: true
+  key-amount: 1
+  lines:
+    - '%crate_color%%crates% ᴄʀᴀᴛᴇs'
+    - '&fClick to view'
+    - '%crate_color%%key% &fkeys'

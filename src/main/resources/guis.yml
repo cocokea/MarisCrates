@@ -1,0 +1,21 @@
+edit:
+  title: '&8Edit %crates%'
+  rows: 3
+preview:
+  title: '&8Choose one item'
+  rows: 3
+confirm:
+  title: '&8Confirm transaction'
+  rows: 3
+  cancel:
+    slot: 11
+    material: RED_STAINED_GLASS_PANE
+    name: '&#FF0000Cancel'
+    lore:
+      - '&fClick to go back'
+  confirm:
+    slot: 15
+    material: LIME_STAINED_GLASS_PANE
+    name: '&aConfirm'
+    lore:
+      - '&fClick to confirm'
