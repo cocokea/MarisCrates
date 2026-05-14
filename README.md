@@ -15,14 +15,14 @@ MarisCrates is a Folia-safe crate plugin with physical crate locations, key stor
 ## Requirements
 
 - Paper / Folia 1.21+
-- Java 21
+- Java 21+
 - `NBTAPI` plugin
 - `PlaceholderAPI` is optional
 
 ## Installation
 
 1. Put the plugin jar in `plugins`.
-2. Install `NBTAPI` on the server.
+2. Install `NBTAPI`.
 3. Start the server once.
 4. Review `config.yml`, `guis.yml`, and `message.yml`.
 5. Restart the server.
@@ -42,24 +42,27 @@ Crates are stored here after creation:
 
 - `plugins/MarisCrates/crates/*.yml`
 
-Each crate file contains its color, location, and reward list.
+Each crate file contains:
 
-## Arena Style Setup For A Crate
+- crate name
+- display color
+- world location
+- reward list
+
+## Quick Setup
 
 Use this flow for every new crate:
 
-1. Stand in-game and decide the crate name.
-2. Run `/crates create <name>`.
-3. Look at the block that should act as the crate.
-4. Run `/crates setloc <name>`.
-5. Set the display color with `/crates setcolor <name> <color>`.
-6. Run `/crates edit <name>`.
-7. Put reward items into the edit GUI.
-8. Close the GUI to save the reward list.
-9. Give yourself or a test player keys with `/crates give <player> <name> <amount>`.
-10. Click the crate block to confirm the preview, confirm, and reward flow.
+1. Run `/crates create <name>`.
+2. Look at the block that should act as the crate.
+3. Run `/crates setloc <name>`.
+4. Run `/crates setcolor <name> <color>`.
+5. Run `/crates edit <name>` and place reward items.
+6. Close the edit GUI to save rewards.
+7. Run `/crates give <player> <name> <amount>` for testing.
+8. Click the crate block and verify preview, confirm, reward, and key deduction.
 
-## Detailed Setup Notes
+## Detailed Setup
 
 ### 1. Create the crate
 
@@ -67,23 +70,23 @@ Use this flow for every new crate:
 /crates create common
 ```
 
-This creates a new crate entry and a matching crate file.
+This creates a crate entry and the corresponding crate file.
 
-### 2. Set the crate block
+### 2. Bind the physical block
 
 ```text
 /crates setloc common
 ```
 
-This uses the block you are currently targeting. The plugin stores that block location as the clickable crate location.
+The plugin uses your currently targeted block as the clickable crate location.
 
-### 3. Set the crate color
+### 3. Set crate color
 
 ```text
 /crates setcolor common &#FFD700
 ```
 
-The color is used in holograms, names, and crate text formatting.
+The color is used in hologram lines and formatted crate text.
 
 ### 4. Add rewards
 
@@ -91,21 +94,21 @@ The color is used in holograms, names, and crate text formatting.
 /crates edit common
 ```
 
-Place the reward items into the edit GUI. When you close the GUI, the reward list is saved automatically.
+Place reward items into the editor GUI. When you close the GUI, the reward set is saved to the crate file.
 
-### 5. Test the crate
+### 5. Test key flow
 
 ```text
 /crates give YourName common 3
 ```
 
-Then click the crate block to test:
+Then click the crate block and verify:
 
-- preview GUI
-- confirm GUI
-- reward delivery
-- key deduction
-- hologram refresh
+- preview GUI opens
+- confirm GUI opens
+- reward is granted
+- one key is removed
+- hologram updates
 
 ## Admin Commands
 
@@ -120,7 +123,7 @@ Then click the crate block to test:
 
 ## Auto Keyall
 
-`config.yml` includes an automatic keyall section:
+`config.yml` includes:
 
 - `auto-keyall.enabled`
 - `auto-keyall.interval-minutes`
@@ -131,7 +134,7 @@ If enabled, the plugin periodically gives the configured key amount for the conf
 
 ## Warp Support
 
-`warp-command` in `config.yml` is used for clickable keyall chat lines.
+`warp-command` in `config.yml` is used for clickable keyall messages.
 
 Example:
 
@@ -150,8 +153,6 @@ Holograms are controlled in `config.yml`:
 - `hologram.key-amount`
 - `hologram.lines`
 
-If holograms are enabled, they refresh when keys change or crate data changes.
-
 ## Files
 
 - `config.yml` - Storage, keyall, warp, and hologram settings.
@@ -159,8 +160,13 @@ If holograms are enabled, they refresh when keys change or crate data changes.
 - `message.yml` - Chat and actionbar messages.
 - `crates/*.yml` - Saved crate definitions.
 
+## Common Mistakes
+
+- Missing `NBTAPI` prevents startup.
+- Forgetting `/crates setloc` leaves a crate file with no usable world block.
+- Editing rewards without closing the GUI means the save callback never fires.
+
 ## Notes
 
 - This plugin is marked as Folia supported.
-- `NBTAPI` is a hard dependency and must be present before the plugin loads.
 - If you switch from SQLite to MySQL, migrate player key data deliberately.
